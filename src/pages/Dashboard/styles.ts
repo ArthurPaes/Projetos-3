@@ -5,9 +5,26 @@ interface FormProps{
   hasError: boolean;
 }
 
+export const Button = styled.button`
+background-color:transparent;
+color: #FFE81F;
+border: 0;
+display: flex;
+align-items: center;
+text-decoration: none;
+color: #FFE81F;
+transition: color 0.2s;
+font-size:16px;
+`;
+
+export const Header = styled.h1`
+  color:  #FFE81F;
+  text-decoration: none;
+`;
+
 export const Title = styled.h1`
   font-size: 48px;
-  color: #3A3A3A;
+  color: #FFE81F;
   max-width: 450px;
   line-height: 56px;
 
@@ -43,14 +60,14 @@ export const Form = styled.form<FormProps>`
   button{
     width: 210px;
     height: 70px;
-    background: #04d361;
+    background: #FFE81F;
     border-radius: 0px 5px 5px 0px;
     border:0;
     color: #fff;
     font-weight:bold;
     transition: background-color 0.2s;
     &:hover{
-    background: ${shade(0.2, '#04d361')}
+    background: ${shade(0.2, '#CCCC00')}
 
   }
 
@@ -64,9 +81,15 @@ export const Error = styled.span`
   margin-top: 8px
 `;
 
-export const Repositories = styled.div`
+export const Info = styled.div`
 margin-top: 80px;
 max-width: 700px;
+
+p{
+  color: #FFE81F;
+  font-size: 20px;
+
+}
 
 a{
   background: #fff;
@@ -97,6 +120,14 @@ div{
   margin: 0 16px;
   flex: 1;
 
+  svg{
+    margin-left: ;
+    color: #FFE81F;
+  }
+
+  .NormalTitle{
+    margin-left: 20px;
+  }
 
   strong{
     font-size: 20px;
@@ -108,11 +139,12 @@ div{
     font-size: 18px;
     color: #A8A8B3;
     margin-top: 4px;
+    margin-left: 20px;
   }
 }
 svg{
-    margin-left: auto;
-    color: #cbcbd6;
+    margin-right: 5px;
+    color: #FFE81F;
   }
 
   &:hover{

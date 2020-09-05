@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import githubBackground from '../assets/githubBackground.svg';
+import githubBackground from '../assets/star-wars-backgrounds-25.png';
 
 export default createGlobalStyle`
 * {
@@ -11,7 +11,7 @@ export default createGlobalStyle`
 }
 
 body{
-  background: #F0F0F5 url(${githubBackground} ) no-repeat 70% top;
+  background: #F0F0F5 url(${githubBackground} )  100% top;
   -webkit-font-smoothing: antialiased;
 }
 

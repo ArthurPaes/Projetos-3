@@ -1,5 +1,22 @@
 import styled from 'styled-components';
 
+export const Button = styled.button`
+background-color:transparent;
+color: #FFE81F;
+border: 0;
+display: flex;
+align-items: center;
+text-decoration: none;
+color: #FFE81F;
+transition: color 0.2s;
+font-size:16px;
+`;
+
+export const Title = styled.h1`
+  color:  #FFE81F;
+  text-decoration: none;
+`;
+
 export const Header = styled.header`
   display: flex;
   align-items: center;
@@ -9,7 +26,7 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #a8a8b3;
+    color: #FFE81F;
     transition: color 0.2s;
   }
 
@@ -18,8 +35,9 @@ export const Header = styled.header`
   }
 `;
 
-export const RepositoryInfo = styled.section`
+export const Info = styled.section`
   margin-top: 80px;
+
 
 header{
   display:flex;
@@ -34,17 +52,17 @@ img{
 }
 
 div{
-  margin-left: 24px;
+  color: #FFE81F;
 
   strong{
-    font-size:36px;
-    color: #3d3d4d;
+    font-size:40px;
+    color: #FFE81F;
 
   }
   p{
     font-size: 18px;
-    color: #737380;
-    margin-top: 4px;
+    color: #FFE81F;
+    margin-top: 20px;
   }
 }
 }
@@ -55,9 +73,11 @@ list-style: none;
 margin-top:40px;
 
 li{
+  margin-top: 20px
 
   &+li{
     margin-left: 80px;
+    margin-top: 20px;
   }
 
   strong{
@@ -71,6 +91,19 @@ li{
     margin-top: 4px;
     color: #6c6c80;
 
+  }
+
+  h1{
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 25px;
+    color: #FFE81F
+  }
+
+  p{
+    font-size: 20px;
+    color: #FFE81F;
+    margin-top: 15px;
   }
 }
 
@@ -113,7 +146,7 @@ div{
 
   p{
     font-size: 18px;
-    color: #A8A8B3;
+    color: #FFE81F;
     margin-top: 4px;
   }
 }

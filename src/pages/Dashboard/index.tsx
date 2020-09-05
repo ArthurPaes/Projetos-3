@@ -1,94 +1,176 @@
+/* eslint-disable max-len */
 import React, { useState, FormEvent, useEffect } from 'react';
-import { FiChevronRight } from 'react-icons/fi';
+import { FiChevronRight, FiStar } from 'react-icons/fi';
+import { GoStar, GrFavorite } from 'react-icons/all';
 import { Link } from 'react-router-dom';
-import logoImg from '../../assets/logo.svg';
+import {} from '@material-ui/core';
 import api from '../../services/api';
 import {
-  Title, Form, Repositories, Error,
+  Title, Form, Info, Error, Header, Button,
 } from './styles';
 
-interface Repository{
-  full_name: string;
-  description: string;
-  owner:{
-    login: string;
-    avatar_url: string;
-  }
+interface CharacterInfo {
+  favorited: boolean;
+  count: number;
+  results: [
+    {
+      name: string;
+      height: number;
+      mass: number;
+      hair_color: string;
+      skin_color: string;
+      eye_color: string;
+      birth_year: string;
+      gender: string;
+      homeworld: string
+      films: [];
+    }
+  ];
+
 }
+
+interface HomeworldInfo{
+  name:string
+ }
 
 const Dashboard: React.FunctionComponent = () => {
   const [newRepo, setNewRepo] = useState('');
   const [inputError, setInputError] = useState('');
-  const [repositories, setRepositories] = useState<Repository[]>(() => {
-    const storagedRepositories = localStorage.getItem('@githubExplorer:repositories');
-
-    if (storagedRepositories) {
-      return JSON.parse(storagedRepositories); // desconvertendo para um array
+  const [favorited, setFavorite] = useState<CharacterInfo[]>(() => {
+    const storagedCharacter = localStorage.getItem('@githubExplorer:Character');
+    if (storagedCharacter) {
+      return JSON.parse(storagedCharacter); // desconvertendo para um array
     }
     return [];
   });
 
+  const [characters, setCharacters] = useState<CharacterInfo[]>([]);
+
+  // // if (favorite) {
+  // const storagedCharacter = localStorage.getItem('@githubExplorer:Character');
+
+  // if (storagedCharacter) {
+  //   return JSON.parse(storagedCharacter); // desconvertendo para um array
+  // }
+  // return [];
+  // // }
+
   useEffect(() => {
     localStorage.setItem(
-      '@githubExplorer:repositories', JSON.stringify(repositories),
+      '@githubExplorer:Character', JSON.stringify(favorited),
     );
   },
-  [repositories]); // saves repositores on localstorage when repositories is altered
+  [favorited]); // saves repositores on localstorage when Character is altered
+
+  function deleteFavorite(character: CharacterInfo) {
+    const filtrados = favorited.filter((char) => char !== character);
+    setFavorite(filtrados);
+  }
+
+  function handleAddToFavorites(character: CharacterInfo) {
+    const existingElement = favorited.some((char) => char.results[0].name === character.results[0].name);
+
+    if (!existingElement) {
+      setFavorite([...favorited, character]);
+      return;
+    }
+    setInputError('That character has already been added to favorites');
+  }
 
   async function handleAddRepository(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
     if (!newRepo) {
-      setInputError(' Type author/name of repository');
+      setInputError(' Type the character name');
       return;
     }
 
-    try {
-      const response = await api.get<Repository>(`repos/${newRepo}`);
+    const persona = await api.get<CharacterInfo>(`/people/?search=${newRepo}`);
 
-      const repository = response.data;
-
-      setRepositories([...repositories, repository]);
-      setNewRepo('');
-      setInputError('');
-    } catch (err) {
-      setInputError('Error trying to find repository');
+    if (persona.data.count === 0) {
+      setInputError('Character not found');
+      return;
     }
+
+    const character = persona.data;
+    setCharacters([...characters, character]);
+
+    setNewRepo('');
+    setInputError('');
   }
 
   return (
     <>
-      <img src={logoImg} alt="Github_discoverer" />
-      <Title>Explore github repositories</Title>
+      <Header>
+        Star Wars Explorer
+      </Header>
+      <Title>Explore Star Wars Characters</Title>
 
       <Form hasError={Boolean(inputError)} onSubmit={handleAddRepository}>
         <input
           value={newRepo}
           onChange={(eventInput) => setNewRepo(eventInput.target.value)}
-          placeholder="Type repository name"
+          placeholder="Type the character name"
         />
-        <button type="submit">Explore</button>
+        <button type="submit">Search</button>
       </Form>
-
       {inputError && <Error>{inputError}</Error>}
       {' '}
       {/* se inputError estiver preenchido, mostre o erro em tela */}
-      <Repositories>
-        {repositories.map((repository) => (
-          <Link key={repository.full_name} to={`/repository/${repository.full_name}`}>
-            <img
-              src={repository.owner.avatar_url}
-              alt={repository.owner.avatar_url}
-            />
-            <div>
-              <strong>{repository.full_name}</strong>
-              <p>{repository.description}</p>
-            </div>
-            <FiChevronRight size={20} />
-          </Link>
+
+      {characters && (
+      <Info>
+        {characters.map((character) => (
+          <>
+            <Link key={character.results[0].name} to={`/character/${character.results[0].name}`}>
+
+              <div>
+
+                <strong className="NormalTitle">{character.results[0].name}</strong>
+                <p>Birth Year: {character.results[0].birth_year}</p>
+                <p>Gender: {character.results[0].gender}</p>
+                <p>Height {character.results[0].height}cm</p>
+
+              </div>
+
+              <FiChevronRight size={20} />
+            </Link>
+
+            <Button onClick={() => { handleAddToFavorites(character); }}>Adicionar aos favoritos</Button>
+          </>
 
         ))}
-      </Repositories>
+      </Info>
+      )}
+
+      {favorited.length && (
+      <Info>
+        <p>Favorites</p>
+        {favorited.map((character) => (
+          <>
+
+            <Link key={character.results[0].name} to={`/character/${character.results[0].name}`}>
+
+              <div>
+                <GoStar />
+
+                <strong>{character.results[0].name}</strong>
+                <p>Birth Year: {character.results[0].birth_year}</p>
+                <p>Gender: {character.results[0].gender}</p>
+                <p>Height {character.results[0].height}cm</p>
+
+              </div>
+
+              <FiChevronRight size={20} />
+            </Link>
+
+            <Button onClick={() => { deleteFavorite(character); }}>Remover dos favoritos</Button>
+          </>
+
+        ))}
+      </Info>
+      )}
+
     </>
   );
 };
