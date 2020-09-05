@@ -7,10 +7,11 @@ Website developed to store personal recipes <br/>
 
 
 # Browsing
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/47614825/84702512-23f6fe00-af2d-11ea-9dbc-16077cfc9bb8.gif)
+![ezgif com-video-to-gif(2)](https://user-images.githubusercontent.com/47614825/92313701-09b94300-efa5-11ea-80fa-9b54ad88aaf4.gif)
+
 
 # Favoriting
-![recify](https://user-images.githubusercontent.com/47614825/88612436-99440b80-d061-11ea-9bc9-2e3b896b8c13.gif)
+![ezgif com-video-to-gif(3)](https://user-images.githubusercontent.com/47614825/92313709-1473d800-efa5-11ea-8d72-98e5c895b936.gif)
 
 
 # Tools used 
