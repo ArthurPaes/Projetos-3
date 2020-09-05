@@ -1,6 +1,6 @@
 # Star Wars Explorer
 
-Website developed to store personal recipes <br/>
+Explore Star Wars Characters <br/>
 
 # Home Page
 ![starexp](https://user-images.githubusercontent.com/47614825/92313464-58191280-efa2-11ea-8d63-46cce8f94696.png)
@@ -19,6 +19,10 @@ Website developed to store personal recipes <br/>
 <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML/HTML5">HTML5</a> <br/>
 <a href="https://developer.mozilla.org/pt-BR/docs/Web/CSS">CSS</a> <br/>
 <a href="https://reactjs.org/">React</a> <br/>
+
+# API used
+<a href="https://swapi.dev/">SWAPI - The Star Wars API</a> <br/>
+
 
 ## Installation
 
