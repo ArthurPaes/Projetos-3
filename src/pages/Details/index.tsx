@@ -9,18 +9,18 @@ import {
   Header, Info, Title, Button,
 } from './styles';
 
-interface FilmParams{
+interface FilmParams {
   Details: string;
 }
 
 interface FilmInfo {
 
-      title:string;
-      episode_id: number;
-      opening_crawl: string;
-      director: string;
-      producer: string;
-      release_date:string
+  title: string;
+  episode_id: number;
+  opening_crawl: string;
+  director: string;
+  producer: string;
+  release_date: string
 
 }
 

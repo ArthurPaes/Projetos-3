@@ -1,16 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-expressions */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { FiChevronLeft } from 'react-icons/fi';
+import { useContext } from 'react';
 import api from '../../services/api';
 
 import {
   Header, Info, Title,
 } from './styles';
+import { AuthContext, AuthProvider } from '../../components/test';
 
-interface CharacterParams{
+interface CharacterParams {
   character: string;
 }
 
@@ -28,7 +30,7 @@ interface CharacterInfo {
       homeworld: string
       films: [
         {
-        title: string;
+          title: string;
         }
       ];
       species: [];
@@ -38,25 +40,29 @@ interface CharacterInfo {
 
     }
   ];
+  filmeszeira: {
+    name: string
+    url: string
+  }[]
 
 }
 
-interface HomeworldInfo{
- name:string
- url:string;
+interface HomeworldInfo {
+  name: string
+  url: string;
 }
 
-interface SpeciesInfo{
-  name:string
-  url:string;
- }
+interface SpeciesInfo {
+  name: string
+  url: string;
+}
 
-interface FilmsInfo{
-   title:string;
+interface FilmsInfo {
+  title: string;
 
 }
 
-interface FavoriteInfo{
+interface FavoriteInfo {
 
   favoritado: boolean;
 
@@ -68,6 +74,8 @@ const Character: React.FunctionComponent = () => {
   const [species, setSpecies] = useState<SpeciesInfo | null>(null);
   const [films, setFilms] = useState<FilmsInfo[]>([]);
 
+  const { testandoApenas, data, setData } = useContext(AuthContext);
+
   const { params } = useRouteMatch<CharacterParams>();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -78,24 +86,59 @@ const Character: React.FunctionComponent = () => {
     return finalUrl;
   }
 
+  let newCharacters: any = {};
+  const filmsNames: { name: string, url: string }[] = [];
+
+  const fetchData = useCallback(async () => {
+    const dados = await testandoApenas(params.character);
+    console.log('dados', dados);
+    // setData(dados)
+  }, [params.character]);
+
   useEffect(() => {
-    api.get(`/people/?search=${params.character}`).then((response) => {
-      setCharacter(response.data);
+    // fetchData()
+    // console.log('wth', teste)
+    // setCharacter(teste)
+    api.get(`/people/?search=${params.character}`).then((response: any) => {
+      if (response.data) {
+        const fetchHistory = response.data.results[0].films.map((item: any) => new Promise<void>(async (resolve, reject) => {
+          const resposta = await api.get(
+            `${item}`,
+          );
+          filmsNames.push({ name: resposta.data.title, url: resposta.data.url });
+
+          resolve();
+        }));
+        newCharacters = {
+          ...response.data,
+          filmeszeira: filmsNames,
+        };
+        console.log('duha81h4e ', newCharacters);
+        Promise.all(fetchHistory);
+      }
+      setTimeout(() => {
+        setCharacter(newCharacters);
+      }, 2000);
     });
   }, [params.character]);
 
   useEffect(() => {
-    api.get(`${character?.results[0].homeworld}`).then((response) => {
+    api.get(`${character?.results[0].homeworld}`).then((response: any) => {
       setHomeworld(response.data);
+      console.log('acho que nem ta send');
     });
 
-    api.get(`${character?.results[0].species}`).then((response) => {
+    api.get(`${character?.results[0].species}`).then((response: any) => {
       setSpecies(response.data);
+      console.log('teste');
     });
 
-    api.get(`${character?.results[0].films}`).then((response) => {
-      setFilms(response.data);
-    });
+    // console.log("aaaaaaaaaaaa", character?.results[0].films)
+
+    // api.get(`${character?.results[0].films}`).then((response: any) => {
+    //   setFilms(response.data);
+    //   console.log("dados")
+    // });
   }, [character]);
 
   if (character?.results[0].favorited === true) {
@@ -104,8 +147,14 @@ const Character: React.FunctionComponent = () => {
         '@githubExplorer:repositories', JSON.stringify(character),
       );
     },
-    [character]); // saves repositores on localstorage when repositories is altered
+      [character]); // saves repositores on localstorage when repositories is altered
   }
+
+  useEffect(() => {
+    // console.log("teasd234", teste)
+    console.log('daibdiad', character);
+    console.log('logando', data);
+  }, [character, data]);
 
   return (
     <>
@@ -147,10 +196,10 @@ const Character: React.FunctionComponent = () => {
             ))}
 
             <p>Films they appear in:</p>
-            {character?.results[0].films.map((film) => (
+            {character && character?.filmeszeira.map((film: any) => (
 
-              <Link key={film.title} to={`/Details/${(getRidOfHttp(String(film)))}`}>
-                <p>{film}</p>
+              <Link key={film.name} to={`/Details/${(getRidOfHttp(String(film.url)))}`}>
+                <p>{film.name}</p>
               </Link>
             ))}
 
