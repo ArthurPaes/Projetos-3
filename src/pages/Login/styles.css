@@ -1,0 +1,38 @@
+.content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  opacity: 1 !important;
+  background: transparent;
+  /* width: 100%; */
+  width: 400px;
+}
+
+html{
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+body{
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+.first-div {
+  height: 100%;
+  width: 100%;
+  position: 'fixed';
+  min-height: '100%';
+  object-fit: 'cover';
+  z-index: -2;
+  background: url('../../assets/atividades-para-ensinar-matematica.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  object-fit: cover; /* or object-fit: contain; */
+}

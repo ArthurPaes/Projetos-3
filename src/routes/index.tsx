@@ -7,10 +7,12 @@ import Species from '../pages/Species';
 import Vehicles from '../pages/Vehicles';
 import Starships from '../pages/Starships';
 import Homeworlds from '../pages/Homeworlds';
+import Login from '../pages/Login';
 
 const Routes: React.FunctionComponent = () => (
   <Switch>
-    <Route path="/" exact component={Dashboard} />
+    <Route path="/" exact component={Login} />
+    <Route path="/Dashboard" exact component={Dashboard} />
     <Route path="/character/:character+" component={Character} />
     <Route path="/Details/:Details+" component={Details} />
     <Route path="/Species/:Species+" component={Species} />

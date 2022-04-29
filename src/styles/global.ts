@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import githubBackground from '../assets/star-wars-backgrounds-25.png';
+import githubBackground from '../assets/atividades-para-ensinar-matematica.jpg';
 
 export default createGlobalStyle`
 * {
@@ -10,8 +10,16 @@ export default createGlobalStyle`
 
 }
 
+html{
+  height:100%;
+  widht:100%;
+}
+
 body{
-  background: #F0F0F5 url(${githubBackground} )  100% top;
+  height:100%;
+  widht:100%;
+  background: gray;
+  background-size: cover;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -21,9 +29,7 @@ body,input , button{
 }
 
 #root{
-  max-width: 960px;
   margin: 0 auto;
-  padding: 40px 20px
 }
 
 button{
