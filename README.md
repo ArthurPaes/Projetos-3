@@ -8,12 +8,12 @@ Projetos 3 - Contei <br/>
 
 - Clone this repo to your local machine using:
 ```shell
-$ git clone https://github.com/ArthurPaes/Projetos-3
+$ git clone git@github.com:ArthurPaes/Projetos-3.git
 ```
 ### Setup
 > Enter the folder:
 ```shell
-$ cd Projetoss-3
+$ cd Projetos-3
 ```
 > Execute `yarn` or `npm instal` to install all the dependencies
 
