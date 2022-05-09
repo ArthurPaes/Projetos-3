@@ -18,7 +18,7 @@ html{
 body{
   height:100%;
   widht:100%;
-  background: gray;
+  background: #F5F5F5;
   background-size: cover;
   -webkit-font-smoothing: antialiased;
 }

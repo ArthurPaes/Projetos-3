@@ -36,7 +36,7 @@ const SigninForm = () => {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <Button variant="contained" type="submit" color="primary">
+                      <Button style={{backgroundColor:'#FF8B1F'}} variant="contained" type="submit" color="primary">
                         Entrar
                       </Button>
                     </Grid>
